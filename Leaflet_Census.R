@@ -24,10 +24,12 @@ tracts = rbind(tractsNH,makeUniqueIDs=TRUE)
 #to_type <- CRS("+proj=longlat +ellps=WGS84 +no_defs")
 
 
-sp.data <- SpatialPoints(pophh[,c("longitude", "latitude")])
-proj4string(sp.data) <- CRS("+proj=longlat +ellps=WGS84 +no_defs")
-tracts <- spTransform(tracts@polygons, proj4string(sp.data)) #transform to use same projection
-bin.indicators <- over(sp.data, tracts, returnList=FALSE)
+#need to get the same projection!!!
+sp.data <- SpatialPoints(coords=pophh[,c("longitude", "latitude")], proj4string=CRS("+init=epsg:4326 +proj=longlat +ellps=WGS84
++datum=WGS84 +no_defs +towgs84=0,0,0"))
+#sp.data2  <- spTransform(sp.data, CRSobj=CRS(proj4string(tracts))) #transform to use same projection
+tracts2 <- spTransform(tracts, CRSobj=proj4string(sp.data))
+bin.indicators <- over(sp.data, tracts2, returnList=FALSE)
 
 
 
