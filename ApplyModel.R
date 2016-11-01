@@ -109,3 +109,6 @@ png("estimated-use-rate.png")
 plot(nh.shp, col=cols2$x.colors,  main = "Estimated Use Rate")
 image.plot( zlim=range(use.rate, na.rm=TRUE), legend.only=TRUE, col=cols2$colors)
 dev.off()
+
+saveRDS(pophh, file="merged_pop.Rdata")
+
